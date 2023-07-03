@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.elmboot.mapper.CheckitemMapper">
+  <resultMap id="BaseResultMap" type="com.example.elmboot.entity.Checkitem">
+    <id column="cild" jdbcType="INTEGER" property="cild" />
+    <result column="ciName" jdbcType="VARCHAR" property="ciname" />
+    <result column="ciContent" jdbcType="VARCHAR" property="cicontent" />
+    <result column="meaning" jdbcType="VARCHAR" property="meaning" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <collection property="checkitemdetailedList" ofType="com.example.elmboot.entity.Checkitemdetailed">
+      <result column="chcdId" jdbcType="INTEGER" property="cdid" />
+      <result column="chciName" jdbcType="VARCHAR" property="ciname" />
+      <result column="chunit" jdbcType="VARCHAR" property="unit" />
+      <result column="chminrange" jdbcType="DOUBLE" property="minrange" />
+      <result column="chmaxrange" jdbcType="DOUBLE" property="maxrange" />
+      <result column="chnormalValue" jdbcType="VARCHAR" property="normalvalue" />
+      <result column="chnormalValueString" jdbcType="VARCHAR" property="normalvaluestring" />
+      <result column="chtype" jdbcType="INTEGER" property="type" />
+      <result column="chcild" jdbcType="INTEGER" property="cild" />
+      <result column="chremarks" jdbcType="VARCHAR" property="remarks" />
+    </collection>
+    <collection property="cidetailedreportList" ofType="com.example.elmboot.entity.Cidetailedreport">
+      <result column="cidrId" jdbcType="INTEGER" property="cidrid" />
+      <result column="name" jdbcType="VARCHAR" property="name" />
+      <result column="unit" jdbcType="VARCHAR" property="unit" />
+      <result column="minrange" jdbcType="DOUBLE" property="minrange" />
+      <result column="maxrange" jdbcType="DOUBLE" property="maxrange" />
+      <result column="normalValue" jdbcType="VARCHAR" property="normalvalue" />
+      <result column="normalValueString" jdbcType="VARCHAR" property="normalvaluestring" />
+      <result column="type" jdbcType="INTEGER" property="type" />
+      <result column="value" jdbcType="VARCHAR" property="value" />
+      <result column="isError" jdbcType="INTEGER" property="iserror" />
+      <result column="cicild" jdbcType="INTEGER" property="cild" />
+      <result column="orderld" jdbcType="INTEGER" property="orderld" />
+    </collection>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cild, ciName, ciContent, meaning, remarks
+  </sql>
+  <select id="selectByExample" parameterType="com.example.elmboot.entity.CheckitemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from checkitem
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from checkitem
+    where cild = #{cild,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from checkitem
+    where cild = #{cild,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.elmboot.entity.CheckitemExample">
+    delete from checkitem
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.elmboot.entity.Checkitem">
+    insert into checkitem (cild, ciName, ciContent, 
+      meaning, remarks)
+    values (#{cild,jdbcType=INTEGER}, #{ciname,jdbcType=VARCHAR}, #{cicontent,jdbcType=VARCHAR}, 
+      #{meaning,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.elmboot.entity.Checkitem">
+    insert into checkitem
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cild != null">
+        cild,
+      </if>
+      <if test="ciname != null">
+        ciName,
+      </if>
+      <if test="cicontent != null">
+        ciContent,
+      </if>
+      <if test="meaning != null">
+        meaning,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cild != null">
+        #{cild,jdbcType=INTEGER},
+      </if>
+      <if test="ciname != null">
+        #{ciname,jdbcType=VARCHAR},
+      </if>
+      <if test="cicontent != null">
+        #{cicontent,jdbcType=VARCHAR},
+      </if>
+      <if test="meaning != null">
+        #{meaning,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.elmboot.entity.CheckitemExample" resultType="java.lang.Long">
+    select count(*) from checkitem
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update checkitem
+    <set>
+      <if test="record.cild != null">
+        cild = #{record.cild,jdbcType=INTEGER},
+      </if>
+      <if test="record.ciname != null">
+        ciName = #{record.ciname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cicontent != null">
+        ciContent = #{record.cicontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.meaning != null">
+        meaning = #{record.meaning,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null">
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update checkitem
+    set cild = #{record.cild,jdbcType=INTEGER},
+      ciName = #{record.ciname,jdbcType=VARCHAR},
+      ciContent = #{record.cicontent,jdbcType=VARCHAR},
+      meaning = #{record.meaning,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.elmboot.entity.Checkitem">
+    update checkitem
+    <set>
+      <if test="ciname != null">
+        ciName = #{ciname,jdbcType=VARCHAR},
+      </if>
+      <if test="cicontent != null">
+        ciContent = #{cicontent,jdbcType=VARCHAR},
+      </if>
+      <if test="meaning != null">
+        meaning = #{meaning,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cild = #{cild,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.elmboot.entity.Checkitem">
+    update checkitem
+    set ciName = #{ciname,jdbcType=VARCHAR},
+      ciContent = #{cicontent,jdbcType=VARCHAR},
+      meaning = #{meaning,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where cild = #{cild,jdbcType=INTEGER}
+  </update>
+  <select id="getCheckitemBySmid" parameterType="integer" resultMap="BaseResultMap">
+    select
+      c.cild, c.ciName, c.ciContent, c.meaning, c.remarks
+    ,ch.cdId as chcdId, ch.ciName as chciName, ch.unit as chunit, ch.minrange as chminrange, ch.maxrange as chmaxrange
+         , ch.normalValue as chnormalValue, ch.normalValueString as chnormalValueString, ch.type as chtype, ch.cild as chcild,
+      ch.remarks as chremarks
+         ,ci.cidrId, ci.name, ci.unit, ci.minrange, ci.maxrange, ci.normalValue
+         , ci.normalValueString, ci.type, ci.value,
+      ci.isError, ci.cild as cicild, ci.orderld
+    from checkitem c
+    left join checkitemdetailed ch on c.cild = ch.cild
+    left join cidetailedreport ci on c.cild = ci.cild
+    left join setmealdetailed s on c.cild = s.cild
+    left join setmeal s2 on s.smId = s2.smId where s2.smId = #{smid}
+  </select>
+</mapper>

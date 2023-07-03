@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.elmboot.mapper.CidetailedreportMapper">
+  <resultMap id="BaseResultMap" type="com.example.elmboot.entity.Cidetailedreport">
+    <id column="cidrId" jdbcType="INTEGER" property="cidrid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="minrange" jdbcType="DOUBLE" property="minrange" />
+    <result column="maxrange" jdbcType="DOUBLE" property="maxrange" />
+    <result column="normalValue" jdbcType="VARCHAR" property="normalvalue" />
+    <result column="normalValueString" jdbcType="VARCHAR" property="normalvaluestring" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="isError" jdbcType="INTEGER" property="iserror" />
+    <result column="cild" jdbcType="INTEGER" property="cild" />
+    <result column="orderld" jdbcType="INTEGER" property="orderld" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cidrId, name, unit, minrange, maxrange, normalValue, normalValueString, type, value, 
+    isError, cild, orderld
+  </sql>
+  <select id="selectByExample" parameterType="com.example.elmboot.entity.CidetailedreportExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cidetailedreport
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cidetailedreport
+    where cidrId = #{cidrid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cidetailedreport
+    where cidrId = #{cidrid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.elmboot.entity.CidetailedreportExample">
+    delete from cidetailedreport
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.elmboot.entity.Cidetailedreport">
+    insert into cidetailedreport (cidrId, name, unit, 
+      minrange, maxrange, normalValue, 
+      normalValueString, type, value, 
+      isError, cild, orderld
+      )
+    values (#{cidrid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, 
+      #{minrange,jdbcType=DOUBLE}, #{maxrange,jdbcType=DOUBLE}, #{normalvalue,jdbcType=VARCHAR}, 
+      #{normalvaluestring,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{value,jdbcType=VARCHAR}, 
+      #{iserror,jdbcType=INTEGER}, #{cild,jdbcType=INTEGER}, #{orderld,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.elmboot.entity.Cidetailedreport">
+    insert into cidetailedreport
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cidrid != null">
+        cidrId,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="minrange != null">
+        minrange,
+      </if>
+      <if test="maxrange != null">
+        maxrange,
+      </if>
+      <if test="normalvalue != null">
+        normalValue,
+      </if>
+      <if test="normalvaluestring != null">
+        normalValueString,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+      <if test="iserror != null">
+        isError,
+      </if>
+      <if test="cild != null">
+        cild,
+      </if>
+      <if test="orderld != null">
+        orderld,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cidrid != null">
+        #{cidrid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="minrange != null">
+        #{minrange,jdbcType=DOUBLE},
+      </if>
+      <if test="maxrange != null">
+        #{maxrange,jdbcType=DOUBLE},
+      </if>
+      <if test="normalvalue != null">
+        #{normalvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="normalvaluestring != null">
+        #{normalvaluestring,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="iserror != null">
+        #{iserror,jdbcType=INTEGER},
+      </if>
+      <if test="cild != null">
+        #{cild,jdbcType=INTEGER},
+      </if>
+      <if test="orderld != null">
+        #{orderld,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.elmboot.entity.CidetailedreportExample" resultType="java.lang.Long">
+    select count(*) from cidetailedreport
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update cidetailedreport
+    <set>
+      <if test="record.cidrid != null">
+        cidrId = #{record.cidrid,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unit != null">
+        unit = #{record.unit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.minrange != null">
+        minrange = #{record.minrange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.maxrange != null">
+        maxrange = #{record.maxrange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.normalvalue != null">
+        normalValue = #{record.normalvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.normalvaluestring != null">
+        normalValueString = #{record.normalvaluestring,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.value != null">
+        value = #{record.value,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iserror != null">
+        isError = #{record.iserror,jdbcType=INTEGER},
+      </if>
+      <if test="record.cild != null">
+        cild = #{record.cild,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderld != null">
+        orderld = #{record.orderld,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update cidetailedreport
+    set cidrId = #{record.cidrid,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      unit = #{record.unit,jdbcType=VARCHAR},
+      minrange = #{record.minrange,jdbcType=DOUBLE},
+      maxrange = #{record.maxrange,jdbcType=DOUBLE},
+      normalValue = #{record.normalvalue,jdbcType=VARCHAR},
+      normalValueString = #{record.normalvaluestring,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      value = #{record.value,jdbcType=VARCHAR},
+      isError = #{record.iserror,jdbcType=INTEGER},
+      cild = #{record.cild,jdbcType=INTEGER},
+      orderld = #{record.orderld,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.elmboot.entity.Cidetailedreport">
+    update cidetailedreport
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="minrange != null">
+        minrange = #{minrange,jdbcType=DOUBLE},
+      </if>
+      <if test="maxrange != null">
+        maxrange = #{maxrange,jdbcType=DOUBLE},
+      </if>
+      <if test="normalvalue != null">
+        normalValue = #{normalvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="normalvaluestring != null">
+        normalValueString = #{normalvaluestring,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="iserror != null">
+        isError = #{iserror,jdbcType=INTEGER},
+      </if>
+      <if test="cild != null">
+        cild = #{cild,jdbcType=INTEGER},
+      </if>
+      <if test="orderld != null">
+        orderld = #{orderld,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cidrId = #{cidrid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.elmboot.entity.Cidetailedreport">
+    update cidetailedreport
+    set name = #{name,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      minrange = #{minrange,jdbcType=DOUBLE},
+      maxrange = #{maxrange,jdbcType=DOUBLE},
+      normalValue = #{normalvalue,jdbcType=VARCHAR},
+      normalValueString = #{normalvaluestring,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      value = #{value,jdbcType=VARCHAR},
+      isError = #{iserror,jdbcType=INTEGER},
+      cild = #{cild,jdbcType=INTEGER},
+      orderld = #{orderld,jdbcType=INTEGER}
+    where cidrId = #{cidrid,jdbcType=INTEGER}
+  </update>
+</mapper>

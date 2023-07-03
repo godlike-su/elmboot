@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.elmboot.mapper.OrdersMapper">
+  <resultMap id="BaseResultMap" type="com.example.elmboot.entity.Orders">
+    <id column="orderId" jdbcType="INTEGER" property="orderid" />
+    <result column="orderDate" jdbcType="DATE" property="orderdate" />
+    <result column="userId" jdbcType="VARCHAR" property="userid" />
+    <result column="hpld" jdbcType="INTEGER" property="hpld" />
+    <result column="smId" jdbcType="INTEGER" property="smid" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="name" property="name" />
+    <result column="type" property="type" />
+    <result column="price" property="price" />
+    <result column="hpName" property="hpName" />
+    <result column="realName" property="realname" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    orderId, orderDate, userId, hpld, smId, state
+  </sql>
+  <select id="selectByExample" parameterType="com.example.elmboot.entity.OrdersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+
+  <select id="getList" parameterType="com.example.elmboot.entity.Orders" resultMap="BaseResultMap">
+    select
+      o.orderId, o.orderDate, o.userId, o.hpld, o.smId, o.state, u.realName, u.sex, h.name as hpName
+         , s.type, s.price, s.name
+    from orders o
+           left join users u on u.userId = o.userId
+           left join hospital h on h.hpld = o.hpld
+           left join setmeal s on s.smId = o.smId
+    <where>
+        <if test="userid != null and userid != ''">
+          and u.userId = #{userid}
+        </if>
+        <if test="sex != null">
+          and u.sex = sex
+        </if>
+        <if test="realname != null and realname != ''">
+          and u.realName like  CONCAT('%', #{realname}, '%')
+        </if>
+        <if test="type != null">
+          and s.type = #{type}
+        </if>
+        <if test="orderdate != null">
+          and o.orderDate = #{orderdate}
+        </if>
+        <if test="state != null">
+          and o.state = #{state}
+        </if>
+
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from orders
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.elmboot.entity.OrdersExample">
+    delete from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.elmboot.entity.Orders" useGeneratedKeys="true" keyProperty="orderid">
+    insert into orders (orderId, orderDate, userId, 
+      hpld, smId, state)
+    values (#{orderid,jdbcType=INTEGER}, #{orderdate,jdbcType=DATE}, #{userid,jdbcType=VARCHAR}, 
+      #{hpld,jdbcType=INTEGER}, #{smid,jdbcType=INTEGER}, #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.elmboot.entity.Orders" useGeneratedKeys="true" keyProperty="orderid">
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        orderId,
+      </if>
+      <if test="orderdate != null">
+        orderDate,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="hpld != null">
+        hpld,
+      </if>
+      <if test="smid != null">
+        smId,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="orderdate != null">
+        #{orderdate,jdbcType=DATE},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="hpld != null">
+        #{hpld,jdbcType=INTEGER},
+      </if>
+      <if test="smid != null">
+        #{smid,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.elmboot.entity.OrdersExample" resultType="java.lang.Long">
+    select count(*) from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update orders
+    <set>
+      <if test="record.orderid != null">
+        orderId = #{record.orderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderdate != null">
+        orderDate = #{record.orderdate,jdbcType=DATE},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hpld != null">
+        hpld = #{record.hpld,jdbcType=INTEGER},
+      </if>
+      <if test="record.smid != null">
+        smId = #{record.smid,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update orders
+    set orderId = #{record.orderid,jdbcType=INTEGER},
+      orderDate = #{record.orderdate,jdbcType=DATE},
+      userId = #{record.userid,jdbcType=VARCHAR},
+      hpld = #{record.hpld,jdbcType=INTEGER},
+      smId = #{record.smid,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.elmboot.entity.Orders">
+    update orders
+    <set>
+      <if test="orderdate != null">
+        orderDate = #{orderdate,jdbcType=DATE},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="hpld != null">
+        hpld = #{hpld,jdbcType=INTEGER},
+      </if>
+      <if test="smid != null">
+        smId = #{smid,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.elmboot.entity.Orders">
+    update orders
+    set orderDate = #{orderdate,jdbcType=DATE},
+      userId = #{userid,jdbcType=VARCHAR},
+      hpld = #{hpld,jdbcType=INTEGER},
+      smId = #{smid,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER}
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </update>
+</mapper>
