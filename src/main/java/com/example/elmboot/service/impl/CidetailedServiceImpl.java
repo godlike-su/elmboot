@@ -2,8 +2,10 @@ package com.example.elmboot.service.impl;
 
 
 import cn.hutool.core.util.ObjectUtil;
+import com.example.elmboot.entity.Checkitem;
 import com.example.elmboot.entity.Cidetailedreport;
 import com.example.elmboot.entity.CidetailedreportExample;
+import com.example.elmboot.mapper.CheckitemMapper;
 import com.example.elmboot.mapper.CidetailedreportMapper;
 import com.example.elmboot.service.CidetailedService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,9 @@ public class CidetailedServiceImpl implements CidetailedService {
 
     @Autowired
     private CidetailedreportMapper cidetailedreportMapper;
+
+    @Autowired
+    private CheckitemMapper checkitemMapper;
 
 
     @Override
@@ -41,5 +46,10 @@ public class CidetailedServiceImpl implements CidetailedService {
         }
 
         return cidetailedreportMapper.selectByExample(example);
+    }
+
+    @Override
+    public List<Checkitem> listCideByOrderId(Cidetailedreport cidetailedreport) {
+        return checkitemMapper.listCideByOrderId(cidetailedreport.getOrderld());
     }
 }

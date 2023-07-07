@@ -27,6 +27,12 @@ public class CheckitemServiceImpl implements CheckitemService {
 
     @Override
     public int addCheckitem(Checkitem checkitem) {
-        return checkitemMapper.insertSelective(checkitem);
+        checkitemMapper.insertSelective(checkitem);
+        return checkitem.getCild();
+    }
+
+    @Override
+    public int deleteCheckitem(Checkitem checkitem) {
+        return checkitemMapper.deleteByPrimaryKey(checkitem.getCild());
     }
 }

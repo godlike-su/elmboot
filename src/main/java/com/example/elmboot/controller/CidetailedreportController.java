@@ -1,5 +1,6 @@
 package com.example.elmboot.controller;
 
+import com.example.elmboot.entity.Checkitem;
 import com.example.elmboot.entity.Cidetailedreport;
 import com.example.elmboot.result.ListResult;
 import com.example.elmboot.result.MessageResult;
@@ -34,6 +35,14 @@ public class CidetailedreportController {
     public ListResult<Cidetailedreport> listIserror1ByOrderId(@RequestBody Cidetailedreport cidetailedreport) {
         cidetailedreport.setIserror(1);
         List<Cidetailedreport> list = cidetailedService.list(cidetailedreport);
+        return new ListResult(list);
+    }
+
+
+    @ApiOperation(value = "获取体检报告,根据orderid")
+    @PostMapping("/listCideByOrderId")
+    public ListResult<Checkitem>  listCideByOrderId(@RequestBody Cidetailedreport cidetailedreport) {
+        List<Checkitem> list = cidetailedService.listCideByOrderId(cidetailedreport);
         return new ListResult(list);
     }
 
