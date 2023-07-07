@@ -29,4 +29,7 @@ public interface CheckitemMapper {
     int updateByPrimaryKey(Checkitem record);
 
     List<Checkitem> getCheckitemBySmid(int smid);
+
+
+    List<Checkitem> listCideByOrderId(int orderId);
 }

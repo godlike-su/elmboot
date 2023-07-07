@@ -16,6 +16,7 @@ public interface CheckitemService {
 
 
     int addCheckitem(Checkitem checkitem);
+    int deleteCheckitem(Checkitem checkitem);
 
 
 }

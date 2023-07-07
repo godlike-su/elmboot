@@ -25,6 +25,11 @@ public class CheckitemdetailedServiceImpl implements CheckitemdetailedService {
     }
 
     @Override
+    public int deleteCheck(Checkitemdetailed checkitemdetailed) {
+        return checkitemdetailedMapper.deleteByPrimaryKey(checkitemdetailed.getCdid());
+    }
+
+    @Override
     public List<Checkitemdetailed> getList(Checkitemdetailed checkitemdetailed) {
         CheckitemdetailedExample checkitemdetailedExample = new CheckitemdetailedExample();
         CheckitemdetailedExample.Criteria criteria = checkitemdetailedExample.createCriteria();

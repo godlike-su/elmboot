@@ -131,7 +131,7 @@
     values (#{cild,jdbcType=INTEGER}, #{ciname,jdbcType=VARCHAR}, #{cicontent,jdbcType=VARCHAR}, 
       #{meaning,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.elmboot.entity.Checkitem">
+  <insert id="insertSelective" parameterType="com.example.elmboot.entity.Checkitem"  useGeneratedKeys="true" keyProperty="cild">
     insert into checkitem
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="cild != null">
@@ -248,5 +248,21 @@
     left join cidetailedreport ci on c.cild = ci.cild
     left join setmealdetailed s on c.cild = s.cild
     left join setmeal s2 on s.smId = s2.smId where s2.smId = #{smid}
+  </select>
+
+  <select id="listCideByOrderId" parameterType="integer" resultMap="BaseResultMap">
+    select
+      c.cild, c.ciName, c.ciContent, c.meaning, c.remarks
+         ,ch.cdId as chcdId, ch.ciName as chciName, ch.unit as chunit, ch.minrange as chminrange, ch.maxrange as chmaxrange
+         , ch.normalValue as chnormalValue, ch.normalValueString as chnormalValueString, ch.type as chtype, ch.cild as chcild,
+      ch.remarks as chremarks
+         ,ci.cidrId, ci.name, ci.unit, ci.minrange, ci.maxrange, ci.normalValue
+         , ci.normalValueString, ci.type, ci.value,
+      ci.isError, ci.cild as cicild, ci.orderld
+    from  cidetailedreport ci
+            left join checkitem c on c.cild = ci.cild
+            left join checkitemdetailed ch on c.cild = ch.cild
+           left join setmealdetailed s on c.cild = s.cild
+           left join setmeal s2 on s.smId = s2.smId where ci.orderld = #{orderId}
   </select>
 </mapper>

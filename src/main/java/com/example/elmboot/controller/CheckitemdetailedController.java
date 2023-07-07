@@ -29,6 +29,13 @@ public class CheckitemdetailedController {
         return new MessageResult(String.valueOf(i));
     }
 
+    @ApiOperation(value = "删除体检报告检查项")
+    @PostMapping("/deleteCheckitemD")
+    public MessageResult deleteCheckitemD(@RequestBody Checkitemdetailed checkitemdetailed) {
+        int i = checkitemdetailedService.deleteCheck(checkitemdetailed);
+        return new MessageResult(String.valueOf(i));
+    }
+
 
 
     @ApiOperation(value = "根据cild检查项编号，查询体检报告检查项")
