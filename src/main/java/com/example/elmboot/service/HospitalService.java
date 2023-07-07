@@ -11,4 +11,8 @@ public interface HospitalService {
 
     Hospital getHospitalByHpld(Hospital hospital);
 
+    String addHospital(Hospital hospital);
+
+    String deleteHospital(Hospital hospital);
+
 }

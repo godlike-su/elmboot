@@ -43,6 +43,9 @@ public class PageParam {
     }
 
     public int getRows() {
+        if (this.rows == 0) {
+            this.rows = 10;
+        }
         return this.rows;
     }
 

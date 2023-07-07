@@ -103,7 +103,7 @@
           and u.userId = #{userid}
         </if>
         <if test="sex != null">
-          and u.sex = sex
+          and u.sex = #{sex}
         </if>
         <if test="realname != null and realname != ''">
           and u.realName like  CONCAT('%', #{realname}, '%')
@@ -117,6 +117,37 @@
         <if test="state != null">
           and o.state = #{state}
         </if>
+
+    </where>
+  </select>
+
+  <select id="getDoctorList" parameterType="com.example.elmboot.entity.Orders" resultMap="BaseResultMap">
+    select
+    o.orderId, o.orderDate, o.userId, o.hpld, o.smId, o.state, u.realName, u.sex, h.name as hpName
+    , s.type, s.price, s.name
+    from orders o
+    left join users u on u.userId = o.userId
+    left join hospital h on h.hpld = o.hpld
+    left join setmeal s on s.smId = o.smId
+    <where>
+      <if test="userid != null and userid != ''">
+        and u.userId like  CONCAT('%', #{userid}, '%')
+      </if>
+      <if test="sex != null">
+        and u.sex = #{sex}
+      </if>
+      <if test="realname != null and realname != ''">
+        and u.realName like  CONCAT('%', #{realname}, '%')
+      </if>
+      <if test="type != null">
+        and s.type = #{type}
+      </if>
+      <if test="orderdate != null">
+        and o.orderDate = #{orderdate}
+      </if>
+      <if test="state != null">
+        and o.state = #{state}
+      </if>
 
     </where>
   </select>

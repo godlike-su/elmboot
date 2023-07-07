@@ -15,7 +15,7 @@ public class Setmeal implements Serializable {
     @ApiModelProperty(value = "体检套餐名称")
     private String name;
 
-    @ApiModelProperty(value = "体检套类型(1: 男士套; 0: 女餐 )")
+    @ApiModelProperty(value = "体检套类型(1: 男士套餐; 0: 女士套餐 )")
     private Integer type;
 
     @ApiModelProperty(value = "体检套餐价格")

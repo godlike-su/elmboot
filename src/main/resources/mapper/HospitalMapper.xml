@@ -100,6 +100,8 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from hospital
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

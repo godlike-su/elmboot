@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,6 +30,7 @@ public class LoginController {
     @PostMapping("/register")
     @ApiOperation(value = "用户注册")
     public MessageResult register(@RequestBody Users users) {
+        users.setUsertype(1);
         String register = loginService.regiest(users);
         return new MessageResult(register);
     }
@@ -36,7 +38,7 @@ public class LoginController {
 
     @PostMapping("/logout")
     @ApiOperation(value = "用户注册")
-    public MessageResult logout(@RequestBody Users users) {
+    public MessageResult logout() {
         loginService.logout();
         return new MessageResult();
     }
@@ -46,6 +48,13 @@ public class LoginController {
     public void downloadFileByImage(@RequestParam("attachGroupId") String attachGroupId
             , HttpServletResponse response) {
         loginService.downloadFileByImage(attachGroupId, response);
+    }
+
+    @PostMapping("/uploadFile")
+    @ApiOperation("文件上传")
+    public MessageResult uploadFile(@RequestParam("file") MultipartFile file) {
+        String s = loginService.uploadPhotoFile(file);
+        return new MessageResult(s);
     }
 
 

@@ -20,6 +20,8 @@ public interface OrdersMapper {
 
     List<Orders> getList(Orders orders);
 
+    List<Orders> getDoctorList(Orders orders);
+
     Orders selectByPrimaryKey(Integer orderid);
 
     int updateByExampleSelective(@Param("record") Orders record, @Param("example") OrdersExample example);

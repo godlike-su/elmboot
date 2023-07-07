@@ -58,7 +58,7 @@ public class OrdersServiceImpl implements OrdersService {
             }
         }
 
-        return "";
+        return String.valueOf(orders.getOrderid());
     }
 
     @Override

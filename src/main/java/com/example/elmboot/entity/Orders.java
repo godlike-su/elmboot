@@ -1,5 +1,7 @@
 package com.example.elmboot.entity;
 
+import com.example.elmboot.pagination.PageParam;
+import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -9,7 +11,7 @@ import java.util.Date;
 
 @Data
 @ApiModel(value="订单信息", description="订单信息")
-public class Orders implements Serializable {
+public class Orders extends PageParam implements Serializable {
     @ApiModelProperty(value = "订单编号")
     private Integer orderid;
 
@@ -46,8 +48,6 @@ public class Orders implements Serializable {
 
     @ApiModelProperty(value = "用户性别 (1: 男;0女)")
     private Integer sex;
-
-
 
 
     private static final long serialVersionUID = 1L;

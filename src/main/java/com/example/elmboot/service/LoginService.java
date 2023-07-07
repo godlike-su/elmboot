@@ -2,6 +2,7 @@ package com.example.elmboot.service;
 
 
 import com.example.elmboot.entity.Users;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,5 +17,6 @@ public interface LoginService {
 
     void downloadFileByImage(String attachGroupId, HttpServletResponse response);
 
+    String uploadPhotoFile(MultipartFile file);
 
 }
