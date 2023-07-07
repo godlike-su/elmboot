@@ -24,6 +24,17 @@ public class Doctor implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public Doctor() {
+
+    }
+
+    public Doctor(Integer docid, String doccode, String realname, Integer deptno) {
+        this.docid = docid;
+        this.doccode = doccode;
+        this.realname = realname;
+        this.deptno = deptno;
+    }
+
     public Integer getDocid() {
         return docid;
     }

@@ -107,9 +107,13 @@ CREATE TABLE doctor (
   docCode VARCHAR(20) NOT NULL COMMENT '医生码(登录用 )',
   realName VARCHAR(20) NOT NULL COMMENT '真实姓名',
   password VARCHAR(20) NOT NULL COMMENT '密码(用 )',
-  seX INT NOT NULL COMMENT '用户性别 (1: 男;0女)',
+  sex INT NOT NULL COMMENT '用户性别 (1: 男;0女)',
   deptno INT NOT NULL COMMENT '所属科室(1: 检验科 ;2 : 内科 ;3 : 外科 )'
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='医生信息表';
+
+INSERT INTO elmboot.doctor
+(docCode, realName, password, sex, deptno)
+VALUES('123456', '李医生', '123456', '1', 1);
 
 
 CREATE TABLE users (
@@ -121,6 +125,12 @@ CREATE TABLE users (
   birthday date NOT NULL COMMENT '出生日期',
   userType INT NOT NULL COMMENT '用户类型(1: 普通用户 ; 2 : 东软内部员工:3 : 其他 '
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户表';
+
+
+INSERT INTO elmboot.users
+(userId, password, realName, sex, identityCard, birthday, userType)
+VALUES('12345678900', '123456', '管理员', 0, '123456789214525211', '2023-01-01', 2);
+
 
 
 
