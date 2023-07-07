@@ -6,7 +6,7 @@
     <result column="docCode" jdbcType="VARCHAR" property="doccode" />
     <result column="realName" jdbcType="VARCHAR" property="realname" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="seX" jdbcType="INTEGER" property="sex" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
     <result column="deptno" jdbcType="INTEGER" property="deptno" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    docId, docCode, realName, password, seX, deptno
+    docId, docCode, realName, password, sex, deptno
   </sql>
   <select id="selectByExample" parameterType="com.example.elmboot.entity.DoctorExample" resultMap="BaseResultMap">
     select
@@ -102,7 +102,7 @@
   </delete>
   <insert id="insert" parameterType="com.example.elmboot.entity.Doctor">
     insert into doctor (docId, docCode, realName, 
-      password, seX, deptno
+      password, sex, deptno
       )
     values (#{docid,jdbcType=INTEGER}, #{doccode,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{deptno,jdbcType=INTEGER}
@@ -124,7 +124,7 @@
         password,
       </if>
       <if test="sex != null">
-        seX,
+        sex,
       </if>
       <if test="deptno != null">
         deptno,
@@ -173,7 +173,7 @@
         password = #{record.password,jdbcType=VARCHAR},
       </if>
       <if test="record.sex != null">
-        seX = #{record.sex,jdbcType=INTEGER},
+        sex = #{record.sex,jdbcType=INTEGER},
       </if>
       <if test="record.deptno != null">
         deptno = #{record.deptno,jdbcType=INTEGER},
@@ -189,7 +189,7 @@
       docCode = #{record.doccode,jdbcType=VARCHAR},
       realName = #{record.realname,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
-      seX = #{record.sex,jdbcType=INTEGER},
+      sex = #{record.sex,jdbcType=INTEGER},
       deptno = #{record.deptno,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -208,7 +208,7 @@
         password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="sex != null">
-        seX = #{sex,jdbcType=INTEGER},
+        sex = #{sex,jdbcType=INTEGER},
       </if>
       <if test="deptno != null">
         deptno = #{deptno,jdbcType=INTEGER},
@@ -221,7 +221,7 @@
     set docCode = #{doccode,jdbcType=VARCHAR},
       realName = #{realname,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      seX = #{sex,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=INTEGER},
       deptno = #{deptno,jdbcType=INTEGER}
     where docId = #{docid,jdbcType=INTEGER}
   </update>
