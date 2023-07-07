@@ -24,7 +24,7 @@ public class CheckitemController {
     private CheckitemService checkitemService;
 
     @ApiOperation(value = "获取所有检查项信息表，根据体检套餐编号smid")
-    @PostMapping("getCheckitemBySmid")
+    @PostMapping("/getCheckitemBySmid")
     public ListResult<Checkitem> getCheckitemBySmid(@RequestBody Setmealdetailed setmealdetailed) {
         List<Checkitem> result = checkitemService.getCheckitemBySmid(setmealdetailed.getSmid());
         return new ListResult<>(result);
@@ -34,7 +34,15 @@ public class CheckitemController {
     @PostMapping("addCheckitem")
     public MessageResult addCheckitem(@RequestBody Checkitem checkitem) {
         int i = checkitemService.addCheckitem(checkitem);
-        return new MessageResult();
+        return new MessageResult(String.valueOf(i));
+    }
+
+    @ApiOperation(value = "删除检查项信息")
+    @PostMapping("deleteCheckitem")
+    public MessageResult deleteCheckitem(@RequestBody Checkitem checkitem) {
+        int i = checkitemService.deleteCheckitem(checkitem);
+        return new MessageResult(String.valueOf(i));
+
     }
 
 
