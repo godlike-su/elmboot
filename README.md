@@ -24,6 +24,10 @@ npm install
 
 elmboot-vue3 是用户登录的界面端口是8080   http://localhost:8080
 
+项目地址：https://github.com/godlike-su/elmboot-vue3.git
+
 elmboot-doctor 是医生登录的界面 端口是8081  http://localhost:8081
+
+项目地址：https://github.com/godlike-su/elmboot-doctor.git
 
 
